@@ -41,14 +41,14 @@ async function generateImage() {
   applyPaperStyles();
 
   try{
-    const canvas = await html2canvas(document.querySelector(".page"), {
-        scrollX: 0,
-        scrollY: -window.scrollY
-      })
+    const dataUrl = await domtoimage.toJpeg(
+      document.querySelector(".page"), 
+      {quality: 0.55}
+    )
     
     document.querySelector('.output').innerHTML = '';
     const img = document.createElement('img');
-    img.src = canvas.toDataURL("image/jpeg");
+    img.src = dataUrl;
     document.querySelector('.output').appendChild(img);
 
     document.querySelectorAll('a.download-button').forEach(a => {
